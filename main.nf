@@ -43,7 +43,7 @@ workflow {
 
     DOWNLOAD_NCBI ( input_type.ncbi )
 
-    GFFREAD ( input_type.local )
+    GFFREAD ( DOWNLOAD_NCBI.out.genome.mix(input_type.local) )
     
 }
 

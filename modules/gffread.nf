@@ -2,7 +2,7 @@ process GFFREAD {
     label 'gffread'
     tag "$sample_id"
     container = 'chriswyatt/gffread_python3'
-    publishDir "$params.outdir/$sample_id" , mode: "copy"
+    publishDir "$params.outdir/" , mode: "copy"
              
     input:
 
@@ -10,7 +10,7 @@ process GFFREAD {
 
     output:
 
-        path( "${sample_id}.prot.fa" ), path( "${sample_id}.cds.fa" ), path( "${sample_id}.protcds.fa" ) , path( "${sample_id}.gff_for_jvci.gff3" ), emit: proteins
+        tuple path( "${sample_id}.prot.fa" ) , path( "${sample_id}.cds.fa" ) , path( "${sample_id}.protcds.fa" ) , path( "${sample_id}.gff_for_jvci.gff3" ), emit: proteins
 
     script:
     """
@@ -25,9 +25,9 @@ process GFFREAD {
         mv ${gff} ${sample_id}.gff_for_jvci.gff3
     fi
 
-    gffread -w ${sample_id}.prot.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
-    gffread -x ${sample_id}.cds.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
-	gffread -y ${sample_id}.protcds.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
+    gffread -w ${sample_id}.splicedexons.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
+    gffread -x ${sample_id}.splicedcds.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
+	gffread -y ${sample_id}.prot.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
 
     """
 }
