@@ -27,6 +27,7 @@ log.info """\
 
 include { DOWNLOAD_NCBI } from './modules/download_ncbi.nf'
 include { GFFREAD } from './modules/gffread.nf'
+include { LONGEST } from './modules/longest_orf.nf'
 
 Channel
     .fromPath(params.input)

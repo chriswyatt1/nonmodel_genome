@@ -1,7 +1,6 @@
 #!/usr/bin/perl
 use warnings;
 use strict;
-use Getopt::Std;
 
 
 die "Please specify (1)fasta file\n" unless(@ARGV==1);
