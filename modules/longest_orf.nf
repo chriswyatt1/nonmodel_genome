@@ -10,7 +10,7 @@ process LONGEST {
 
     output:
 
-        path( "${fasta}.largestIsoform" )
+        path( "${fasta}.largestIsoform.fa" )
 
     script:
     """

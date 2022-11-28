@@ -28,6 +28,7 @@ log.info """\
 include { DOWNLOAD_NCBI } from './modules/download_ncbi.nf'
 include { GFFREAD } from './modules/gffread.nf'
 include { LONGEST } from './modules/longest_orf.nf'
+include { ORTHOFINDER } from './modules/orthofinder.nf'
 
 Channel
     .fromPath(params.input)
@@ -47,6 +48,8 @@ workflow {
     GFFREAD ( DOWNLOAD_NCBI.out.genome.mix(input_type.local) )
     
     LONGEST ( GFFREAD.out.proteins )
+
+    ORTHOFINDER ( LONGEST.out.collect() )
 }
 
 workflow.onComplete {

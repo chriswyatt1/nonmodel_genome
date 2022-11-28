@@ -6,7 +6,7 @@ use strict;
 die "Please specify (1)fasta file\n" unless(@ARGV==1);
 
 my $fastafile = $ARGV[0];
-my $outfile="$fastafile\.largestIsoform";
+my $outfile="$fastafile\.largestIsoform.fa";
 
 open(my $outhandle, ">", $outfile)   or die "Could not open $outfile \n";
 

@@ -28,9 +28,12 @@ process GFFREAD {
         mv ${gff} ${sample_id}.gff_for_jvci.gff3
     fi
 
-    gffread -w ${sample_id}.splicedexons.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
-    gffread -x ${sample_id}.splicedcds.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
-	gffread -y ${sample_id}.prot.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3 -F
+    #Remove lines of the GFF that have ? in the strand section, as this cannot be parsed by gffread
+    awk '\$7 != "?" { print \$0 }' ${sample_id}.gff_for_jvci.gff3  > ${sample_id}.gff_for_jvci.noquest.gff3
+    
+    gffread -w ${sample_id}.splicedexons.fa -g ${fasta} ${sample_id}.gff_for_jvci.noquest.gff3
+    gffread -x ${sample_id}.splicedcds.fa -g ${fasta} ${sample_id}.gff_for_jvci.noquest.gff3
+	gffread -y ${sample_id}.prot.fa -g ${fasta} ${sample_id}.gff_for_jvci.noquest.gff3 -F -S
 
     """
 }
