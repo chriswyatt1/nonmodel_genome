@@ -8,46 +8,6 @@ from biocode import gff, things
 '''
 This script converts native (GTF) or GFF output (via the --gff3 option) of Augustus
 into GFF3 format.
-Admittedly, when you run augustus with --gff3=on you will get legal GFF3 with lots of
-comments.  What I often need is GFF3 that also follows the gene model graph conventions
-defined in the GFF3, which the default output does not.  There are no exon or mRNA
-features, for example.
-This script reads the native GFF output and makes it conform to the suggested canonical
-gene model, defined here:
-http://www.sequenceontology.org/gff3.shtml
-WARNING: The augustus output format appears to change pretty frequently.  I've provided
-an example of the expected input below, and the versions I tested with are 2.7, 3.0.1 and 3.3
-WARNING: Only the gene/transcript/CDS rows are kept (and exon rows are created).  All
-others are discarded.
-EXPECTED INPUT example:
-###
-# start gene g2
-FO082871        AUGUSTUS        gene    16991   18816   0.04    +       .       ID=g2
-FO082871        AUGUSTUS        transcript      16991   18816   0.04    +       .       ID=g2.t1;Parent=g2
-FO082871        AUGUSTUS        transcription_start_site        16991   16991   .       +       .       Parent=g2.t1
-FO082871        AUGUSTUS        five_prime_utr  16991   17193   0.04    +       .       Parent=g2.t1
-FO082871        AUGUSTUS        start_codon     17194   17196   .       +       0       Parent=g2.t1
-FO082871        AUGUSTUS        intron  17317   17557   0.15    +       .       Parent=g2.t1
-FO082871        AUGUSTUS        CDS     17194   17316   0.15    +       0       ID=g2.t1.cds;Parent=g2.t1
-FO082871        AUGUSTUS        CDS     17558   17647   0.15    +       0       ID=g2.t1.cds;Parent=g2.t1
-FO082871        AUGUSTUS        stop_codon      17645   17647   .       +       0       Parent=g2.t1
-FO082871        AUGUSTUS        three_prime_utr 17648   18816   0.07    +       .       Parent=g2.t1
-FO082871        AUGUSTUS        transcription_end_site  18816   18816   .       +       .       Parent=g2.t1
-# protein sequence = [MQDNYTDGQPGIHRAIAKLEAIINEVDQQLYDYLLERQIHLSPPSKYWEISDIDELVAKAYVCFYAGLCC]
-# Evidence for and against this transcript:
-# % of transcript supported by hints (any source): 80
-# CDS exons: 2/2
-#      W:   2 
-# CDS introns: 0/1
-# 5'UTR exons and introns: 1/1
-#      W:   1 
-# 3'UTR exons and introns: 1/1
-#      W:   1 
-# hint groups fully obeyed: 148
-#      W: 148 
-# incompatible hint groups: 11
-#      W:  11 
-# end gene g2
 '''
 
 def main():

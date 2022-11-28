@@ -10,7 +10,10 @@ process GFFREAD {
 
     output:
 
-        tuple path( "${sample_id}.prot.fa" ) , path( "${sample_id}.splicedcds.fa" ) , path( "${sample_id}.splicedexons.fa" ) , path( "${sample_id}.gff_for_jvci.gff3" ), emit: proteins
+        path( "${sample_id}.prot.fa" ), emit: proteins
+        path( "${sample_id}.splicedcds.fa" )
+        path( "${sample_id}.splicedexons.fa" )
+        path( "${sample_id}.gff_for_jvci.gff3" )
 
     script:
     """
@@ -27,7 +30,9 @@ process GFFREAD {
 
     gffread -w ${sample_id}.splicedexons.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
     gffread -x ${sample_id}.splicedcds.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
-	gffread -y ${sample_id}.prot.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3
+	gffread -y ${sample_id}.prot.fa -g ${fasta} ${sample_id}.gff_for_jvci.gff3 -F
+  
+    ncbi_gffread_to_gene.pl ${sample_id}.prot.fa
 
     """
 }

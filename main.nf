@@ -45,6 +45,7 @@ workflow {
 
     GFFREAD ( DOWNLOAD_NCBI.out.genome.mix(input_type.local) )
     
+    LONGEST ( GFFREAD.out.proteins )
 }
 
 workflow.onComplete {
