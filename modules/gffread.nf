@@ -10,7 +10,7 @@ process GFFREAD {
 
     output:
 
-        tuple path( "${sample_id}.prot.fa" ) , path( "${sample_id}.cds.fa" ) , path( "${sample_id}.protcds.fa" ) , path( "${sample_id}.gff_for_jvci.gff3" ), emit: proteins
+        tuple path( "${sample_id}.prot.fa" ) , path( "${sample_id}.splicedcds.fa" ) , path( "${sample_id}.splicedexons.fa" ) , path( "${sample_id}.gff_for_jvci.gff3" ), emit: proteins
 
     script:
     """
