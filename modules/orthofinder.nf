@@ -15,8 +15,8 @@ process ORTHOFINDER {
         count=`ls -1 *.gz 2>/dev/null | wc -l`
         if [ \$count != 0 ]
         then
-	gunzip *.gz
+	    gunzip *.gz
         fi
-	orthofinder -f . -o My_result
+	    orthofinder -f . -o My_result
     """
 }

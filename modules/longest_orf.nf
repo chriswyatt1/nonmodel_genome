@@ -1,6 +1,6 @@
 process LONGEST {
     label 'longest'
-    tag "$sample_id"
+    tag "$fasta"
     container = 'chriswyatt/bioseqio'
     publishDir "$params.outdir/" , mode: "copy"
              
@@ -14,6 +14,12 @@ process LONGEST {
 
     script:
     """
-        ncbi_gffread_to_gene.pl ${fasta}
+        head -n 1 ${fasta} > tbd
+        if grep -q ; tbd; then
+            ncbi_gffread_to_gene.pl ${fasta}
+        else
+            ncbi_gffread_to_gene_augustus.pl ${fasta}
+        fi
+        
     """
 }
