@@ -3,8 +3,8 @@ process LONGEST {
     tag "$fasta"
     container = 'chriswyatt/bioseqio'
     publishDir "$params.outdir/" , mode: "copy"
-    echo true
-            
+    debug true
+
     input:
 
         path(fasta)
