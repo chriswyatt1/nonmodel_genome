@@ -14,12 +14,6 @@ process LONGEST {
 
     script:
     """
-        head -n 1 ${fasta} > tbd
-        if grep -q ; tbd; then
-            ncbi_gffread_to_gene.pl ${fasta}
-        else
-            ncbi_gffread_to_gene_augustus.pl ${fasta}
-        fi
-        
+        ncbi_gffread_to_gene_universal.pl ${fasta}
     """
 }

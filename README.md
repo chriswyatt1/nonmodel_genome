@@ -11,3 +11,10 @@ Run with:
 ```
 
 Then in Results, you should have all the gffread outputs, plus orthofinder.
+
+
+# Testing
+
+To run an individual module on Gitpod use the following:
+
+`docker run --volume $PWD:$PWD -it chriswyatt/bioseqio workspace/nonmodel_genome/bin/ncbi_gffread_to_gene.pl`
