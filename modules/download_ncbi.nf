@@ -1,6 +1,7 @@
 process DOWNLOAD_NCBI {
     label 'download'
     tag "$sample_id via $accension_id"
+    container = 'chriswyatt/ncbi_download'
     errorStrategy = 'ignore'
          
     input:
