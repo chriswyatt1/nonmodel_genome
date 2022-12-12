@@ -10,11 +10,18 @@ my $outfile="$fastafile\.largestIsoform.fa";
 
 open(my $outhandle, ">", $outfile)   or die "Could not open $outfile \n";
 
+my $outfile2="$fastafile\.summary.txt";
+open(my $outhandle2, ">", $outfile2)   or die "Could not open $outfile2 \n";
+my $uniq_gene_count=0;
+my $total_gene_count=0;
 
 use Bio::SeqIO;
 my $seqio = Bio::SeqIO->new(-file => "$fastafile", '-format' => 'Fasta');
 my %fastadictionary=();
 my @headersplit=();
+
+
+
 while (my $seq = $seqio->next_seq){ ## selects one sequence at a time
    	## set variables for THIS sequence
     my $id = $seq->desc;
@@ -84,11 +91,21 @@ while (my $seq = $seqio->next_seq){ ## selects one sequence at a time
 	}
 	else{
 		$fastadictionary{$new_id}=$string;
+        $uniq_gene_count++;
 	}
+    $total_gene_count++;
 	
 }
 
-print "Now print new fasta with one main protein per gene.\n";
+#print off changes in gene to protein number.
+
+print $outhandle2 "$total_gene_count\t$uniq_gene_count\n";
+
+print "For file : $fastafile\n";
+print "Total genes\tUnique proteins\n";
+print "$total_gene_count\t$uniq_gene_count\n";
+
+#print "Now print new fasta with one main protein per gene.\n";
 
 foreach my $key ( sort keys %fastadictionary){
 	if ($fastadictionary{$key} eq "Sequenceunavailable"){
@@ -100,5 +117,5 @@ foreach my $key ( sort keys %fastadictionary){
 	
 }
 
-print "Finished:  input lines, output lines\n";
+#print "Finished:  input lines, output lines\n";
 
