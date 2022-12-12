@@ -1,7 +1,7 @@
 process GFFREAD {
     label 'gffread'
     tag "$sample_id"
-    container = 'chriswyatt/gffread_python3'
+    container = 'chriswyatt/gffread_python3:v2'
     publishDir "$params.outdir/" , mode: "copy"
              
     input:
