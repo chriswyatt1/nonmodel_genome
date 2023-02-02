@@ -25,8 +25,10 @@ my @headersplit=();
 while (my $seq = $seqio->next_seq){ ## selects one sequence at a time
    	## set variables for THIS sequence
     my $id = $seq->desc;
+    chomp $id;
     #print "here $id\n";
 	my $string = $seq->seq;
+    chomp $string;
     my $new_id;
     my $len=length($string);
 
@@ -37,9 +39,11 @@ while (my $seq = $seqio->next_seq){ ## selects one sequence at a time
 		my @split=split(/\;/, $id);
         #Check it has a gene name:
 		foreach my $name (@split){
+            #print "NAME = $name\n";
 			my @obs= split("\=", $name);
-			if ($obs[0] eq "gene"){
+			if ($obs[0] eq "gene" || $obs[0] eq "gene_id"){
 				$new_id=$obs[1];
+                #print "K $new_id $obs[1]\n";
 			}
 		}
         #Check it has a ID name if not:
@@ -89,12 +93,14 @@ while (my $seq = $seqio->next_seq){ ## selects one sequence at a time
 	
 	
 	if ($fastadictionary{$new_id}){
+        #print "it exists $new_id\n";
 		my $len_old=length($fastadictionary{$new_id});
 		if ($len >= $len_old){
 			$fastadictionary{$new_id}=$string;
 		}
 	}
 	else{
+        #print "it didn't $new_id\n";
 		$fastadictionary{$new_id}=$string;
         $uniq_gene_count++;
 	}
@@ -123,4 +129,3 @@ foreach my $key ( sort keys %fastadictionary){
 }
 
 #print "Finished:  input lines, output lines\n";
-
